@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
-using Radiant.NET.Domain.Models;
-using Radiant.NET.Repository.Specifications;
+using Radiant.Domain.Models;
 using System.Data.Common;
 using System.Linq.Expressions;
+using Radiant.Repository.Specifications;
 
-namespace Radiant.NET.Repository.Core
+namespace Radiant.Repository.Core
 {
     /// <summary>
     /// The ICoreRepository interface provides methods for performing CRUD operations, querying, counting, paging,
@@ -135,12 +135,12 @@ namespace Radiant.NET.Repository.Core
         Task<T?> GetBy(Expression<Func<T, bool>> where);
 
         /// <summary>
-        /// Retrieves an entity from the repository that meets the criteria specified by the given Radiant.NET specification.
+        /// Retrieves an entity from the repository that meets the criteria specified by the given Radiant specification.
         /// </summary>
         /// <param name="coreSpecifications">The specifications that an entity must meet to be retrieved from the repository.</param>
         /// <returns>
         /// A task that represents the asynchronous operation. The task result is the first entity that satisfies the specified
-        /// Radiant.NET specifications. If no entity satisfies the specifications, the task result is null.
+        /// Radiant specifications. If no entity satisfies the specifications, the task result is null.
         /// </returns>
         Task<T?> GetBy(ICoreSpecifications<T> coreSpecifications);
 
@@ -212,7 +212,7 @@ namespace Radiant.NET.Repository.Core
         IQueryable<T> GetAllQueryable(Expression<Func<T, bool>> where);
 
         /// <summary>
-        /// Retrieves entities that match the specified Radiant.NET specifications from the repository asynchronously.
+        /// Retrieves entities that match the specified Radiant specifications from the repository asynchronously.
         /// </summary>
         /// <param name="coreSpecifications">The specifications that entities must meet to be retrieved from the repository.</param>
         /// <returns>A queryable collection of entities that satisfy The core specifications.</returns>
@@ -250,7 +250,7 @@ namespace Radiant.NET.Repository.Core
         IQueryable<TEntity> GetAllQueryable<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class;
 
         /// <summary>
-        /// Retrieves entities that match the specified Radiant.NET specifications from the repository asynchronously.
+        /// Retrieves entities that match the specified Radiant specifications from the repository asynchronously.
         /// </summary>
         /// <param name="coreSpecifications">The specifications that entities must meet to be retrieved from the repository.</param>
         /// <returns>A queryable collection of entities that satisfy The core specifications.</returns>
@@ -279,13 +279,13 @@ namespace Radiant.NET.Repository.Core
         #region Pageable
 
         /// <summary>
-        /// Retrieves a paginated list of entities from the repository that conforms to the specified Radiant.NET page.
+        /// Retrieves a paginated list of entities from the repository that conforms to the specified Radiant page.
         /// </summary>
         /// <typeparam name="T">The type of entities to be retrieved from the repository.</typeparam>
         /// <param name="page">The page number and size of the entities to be retrieved from the repository.</param>
         /// <returns>
         /// A task that represents the asynchronous operation. The task result is a collection of entities that meet The core specifications,
-        /// paginated based on the given Radiant.NET page object. If no entities meet the specifications, the task result is an empty collection.
+        /// paginated based on the given Radiant page object. If no entities meet the specifications, the task result is an empty collection.
         /// </returns>
         Task<Paged<T>> GetPagedResult(Page page);
         Task<Paged<T>> GetPagedResult(Page page, ICoreSpecifications<T> coreSpecifications);
@@ -301,7 +301,7 @@ namespace Radiant.NET.Repository.Core
         /// <param name="page">The page number and size of the entities to be retrieved from the repository.</param>
         /// <param name="coreSpecifications">The specifications that entities must meet to be retrieved from the repository.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains a collection of entities satisfying the condition.
-        /// or an empty collection if no matches, paged by the given information in Radiant.NETPage object.</returns>
+        /// or an empty collection if no matches, paged by the given information in RadiantPage object.</returns>
         Task<ICollection<T>> PageAllAsync(Page page, ICoreSpecifications<T>? coreSpecifications);
 
         /// <summary>
@@ -309,7 +309,7 @@ namespace Radiant.NET.Repository.Core
         /// </summary>
         /// <param name="page">The page number and size of the entities to be retrieved from the repository.</param>
         /// <param name="coreSpecifications">The specifications that entities must meet to be retrieved from the repository.</param>
-        /// <returns>A queryable collection of all entities in the repository that fulfill the condition, paged by the given information in Radiant.NETPage object.</returns>
+        /// <returns>A queryable collection of all entities in the repository that fulfill the condition, paged by the given information in RadiantPage object.</returns>
         IQueryable<T> PageAllQueryable(Page page, ICoreSpecifications<T>? coreSpecifications);
 
         #endregion Pageable

@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Radiant.NET.Domain.Exceptions;
-using Radiant.NET.Repository.Attributes;
+using Radiant.Domain.Exceptions;
 using System.Reflection;
+using Radiant.Repository.Attributes;
 
-namespace Radiant.NET.Repository.Injections
+namespace Radiant.Repository.Injections
 {
     /// <summary>
     /// The RepositoryInjections static class contains extension methods for ModelBuilder and IServiceCollection instances.

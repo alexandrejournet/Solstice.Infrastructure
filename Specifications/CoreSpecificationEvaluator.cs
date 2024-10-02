@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
-namespace Radiant.NET.Repository.Specifications;
+namespace Radiant.Repository.Specifications;
 
 public class CoreSpecificationEvaluator<T> where T : class
 {

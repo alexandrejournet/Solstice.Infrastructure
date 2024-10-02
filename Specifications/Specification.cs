@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace Radiant.NET.Repository.Specifications;
+namespace Radiant.Repository.Specifications;
 
 /// <summary>
 /// The `coreSpecifications<T>` class implements the `IcoreSpecifications<T>` interface for providing generic ways to

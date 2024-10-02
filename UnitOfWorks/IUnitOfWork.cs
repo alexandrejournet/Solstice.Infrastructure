@@ -1,6 +1,6 @@
-﻿using Radiant.NET.Repository.Core;
+﻿using Radiant.Repository.Core;
 
-namespace Radiant.NET.Repository;
+namespace Radiant.Repository;
 
 public interface IUnitOfWork : IDisposable
 {

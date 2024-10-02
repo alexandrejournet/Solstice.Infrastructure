@@ -1,3 +1,3 @@
-# Radiant.NET.Repository
+# Radiant.Repository
 
-Partie Repository de Radiant.NETFramework
+Partie Repository de RadiantFramework

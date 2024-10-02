@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using Radiant.NET.Domain.Exceptions;
-using Radiant.NET.Domain.Models;
-using Radiant.NET.Repository.Extensions;
-using Radiant.NET.Repository.Specifications;
+using Radiant.Domain.Exceptions;
+using Radiant.Domain.Models;
+using Radiant.Repository.Extensions;
 using System.Data.Common;
 using System.Linq.Expressions;
+using Radiant.Repository.Specifications;
 
-namespace Radiant.NET.Repository.Core;
+namespace Radiant.Repository.Core;
 
 /// <summary>
 /// An abstract class for the CoreRepository. Constructs a repository with a given context and Http context.

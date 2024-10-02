@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Radiant.NET.Domain.Exceptions;
+using Radiant.Domain.Exceptions;
 
-namespace Radiant.NET.Repository;
+namespace Radiant.Repository;
 
 public sealed class UnitOfWork<TDbContext>(TDbContext dbContext, IHttpContextAccessor httpContext) : IUnitOfWork
     where TDbContext : DbContext

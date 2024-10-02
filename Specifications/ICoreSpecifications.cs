@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace Radiant.NET.Repository.Specifications
+namespace Radiant.Repository.Specifications
 {
     public interface ICoreSpecifications<T>
     {

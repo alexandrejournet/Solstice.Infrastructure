@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Radiant.NET.Domain\Radiant.NET.Domain.csproj" />
+    <ProjectReference Include="..\Radiant.Domain\Radiant.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

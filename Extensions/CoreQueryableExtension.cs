@@ -1,6 +1,6 @@
-﻿using Radiant.NET.Domain.Models;
+﻿using Radiant.Domain.Models;
 
-namespace Radiant.NET.Repository.Extensions;
+namespace Radiant.Repository.Extensions;
 
 /// <summary>
 /// Represents a utility class that provides extension methods to IQueryable interface objects.

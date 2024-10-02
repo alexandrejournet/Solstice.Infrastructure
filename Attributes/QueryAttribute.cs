@@ -1,4 +1,4 @@
-﻿namespace Radiant.NET.Repository.Attributes
+﻿namespace Radiant.Repository.Attributes
 {
     /// <summary>
     /// Represents a custom attribute. This attribute is used to indicate which classes are to be used for database queries.
