@@ -1,4 +1,4 @@
-﻿namespace Radiant.Repository.Attributes
+﻿namespace Solstice.Repository.Attributes
 {
     /// <summary>
     /// Represents a custom attribute. This attribute is used to indicate which classes are to be used for database queries.

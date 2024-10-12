@@ -1,6 +1,6 @@
-﻿using Radiant.Repository.Core;
+﻿using Solstice.Repository.Core;
 
-namespace Radiant.Repository;
+namespace Solstice.Repository;
 
 public interface IUnitOfWork : IDisposable
 {

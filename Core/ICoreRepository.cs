@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
-using Radiant.Domain.Models;
+using Solstice.Domain.Models;
 using System.Data.Common;
 using System.Linq.Expressions;
-using Radiant.Repository.Specifications;
+using Solstice.Repository.Specifications;
 
-namespace Radiant.Repository.Core
+namespace Solstice.Repository.Core
 {
     /// <summary>
     /// The ICoreRepository interface provides methods for performing CRUD operations, querying, counting, paging,

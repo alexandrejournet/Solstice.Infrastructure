@@ -1,6 +1,6 @@
-﻿using Radiant.Domain.Models;
+﻿using Solstice.Domain.Models;
 
-namespace Radiant.Repository.Extensions;
+namespace Solstice.Repository.Extensions;
 
 /// <summary>
 /// Represents a utility class that provides extension methods to IQueryable interface objects.

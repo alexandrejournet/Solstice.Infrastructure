@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace Radiant.Repository.Specifications
+namespace Solstice.Repository.Specifications
 {
     public interface ICoreSpecifications<T>
     {

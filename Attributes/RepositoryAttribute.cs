@@ -1,4 +1,4 @@
-﻿namespace Radiant.Repository.Attributes
+﻿namespace Solstice.Repository.Attributes
 {
     /// <summary>
     /// The 'RepositoryAttribute' class, derived from 'Attribute', is a custom attribute class. It may be used to annotate repository classes.
