@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 namespace Solstice.Repository.Specifications;
 
 /// <summary>
-/// The `coreSpecifications<T>` class implements the `IcoreSpecifications<T>` interface for providing generic ways to
+/// The `coreSpecifications&lt;T&gt;` class implements the `IcoreSpecifications&lt;T&gt;` interface for providing generic ways to
 /// define specifications for querying the database.
 /// </summary>
 /// <typeparam name="T">The type of the object which specifications are applied to. Something like an EF Core model type.</typeparam>
@@ -15,9 +15,9 @@ namespace Solstice.Repository.Specifications;
 /// Note: The 'Include', 'OrderBy', 'OrderByDescending', 'FilterCondition', and 'GroupBy' are Expressions and something like LINQ queries.
 /// </remarks>
 /// <example>
-/// This sample shows how to create a new instance of `coreSpecifications<T>`.
+/// This sample shows how to create a new instance of `coreSpecifications&lt;T&gt;`.
 /// <code>
-/// var specs = new coreSpecifications<MyModel>();
+/// var specs = new coreSpecifications&lt;MyModel&gt;();
 /// specs.SetFilterCondition(x => x.Property > 0);
 /// specs.ApplyOrderBy(x => x.AnotherProperty);
 /// </code>

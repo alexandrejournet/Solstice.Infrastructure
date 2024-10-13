@@ -404,7 +404,7 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
     /// </summary>
     /// <param name="where">The expression to evaluate.</param>
     /// <returns>IQueryable of entities that match the expression.</returns>
-    public IQueryable<TEntity?> GetAllQueryable<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class
+    public IQueryable<TEntity> GetAllQueryable<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class
     {
         return ApplySpecificationWhere(where)
             .AsNoTracking();

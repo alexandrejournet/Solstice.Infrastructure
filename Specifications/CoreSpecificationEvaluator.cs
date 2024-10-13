@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Solstice.Repository.Specifications;
 
+/// <summary>
+/// 
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public class CoreSpecificationEvaluator<T> where T : class
 {
     protected CoreSpecificationEvaluator()
