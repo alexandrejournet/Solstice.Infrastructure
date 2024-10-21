@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace Solstice.Repository.Specifications;
+namespace Solstice.Infrastructure.Specifications;
 
 public interface ICoreSpecifications<T>
 {

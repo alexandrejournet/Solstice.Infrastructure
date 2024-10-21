@@ -1,6 +1,6 @@
 ﻿using Solstice.Domain.Models;
 
-namespace Solstice.Repository.Extensions;
+namespace Solstice.Infrastructure.Extensions;
 
 /// <summary>
 /// Represents a utility class that provides extension methods to IQueryable interface objects.

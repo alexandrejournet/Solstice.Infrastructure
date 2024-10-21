@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Solstice.Domain.Exceptions;
 
-namespace Solstice.Repository;
+namespace Solstice.Infrastructure.UnitOfWorks;
 
 public sealed class UnitOfWork<TDbContext>(TDbContext dbContext, IHttpContextAccessor httpContext) : IUnitOfWork
     where TDbContext : DbContext

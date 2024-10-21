@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Solstice.Domain.Exceptions;
 using Solstice.Domain.Models;
-using Solstice.Repository.Extensions;
+using Solstice.Infrastructure.Extensions;
 using System.Data.Common;
 using System.Linq.Expressions;
-using Solstice.Repository.Specifications;
+using Solstice.Infrastructure.Specifications;
 
-namespace Solstice.Repository.Core;
+namespace Solstice.Infrastructure.Core;
 
 /// <summary>
 /// An abstract class for the CoreRepository. Constructs a repository with a given context and Http context.

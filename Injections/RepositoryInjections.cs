@@ -2,9 +2,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using Solstice.Domain.Exceptions;
 using System.Reflection;
-using Solstice.Repository.Attributes;
+using Solstice.Infrastructure.Attributes;
+using Solstice.Infrastructure.UnitOfWorks;
 
-namespace Solstice.Repository.Injections;
+namespace Solstice.Infrastructure.Injections;
 
 /// <summary>
 /// The RepositoryInjections static class contains extension methods for ModelBuilder and IServiceCollection instances.

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace Solstice.Repository.Specifications;
+namespace Solstice.Infrastructure.Specifications;
 
 /// <summary>
 /// The `coreSpecifications&lt;T&gt;` class implements the `IcoreSpecifications&lt;T&gt;` interface for providing generic ways to

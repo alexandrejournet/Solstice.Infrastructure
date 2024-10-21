@@ -1,6 +1,6 @@
-﻿using Solstice.Repository.Core;
+﻿using Solstice.Infrastructure.Core;
 
-namespace Solstice.Repository;
+namespace Solstice.Infrastructure.UnitOfWorks;
 
 public interface IUnitOfWork : IDisposable
 {
