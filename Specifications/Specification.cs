@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 namespace Solstice.Infrastructure.Specifications;
 
 /// <summary>
-/// The `coreSpecifications&lt;T&gt;` class implements the `IcoreSpecifications&lt;T&gt;` interface for providing generic ways to
+/// The `coreSpecifications&lt;T&gt;` class implements the `ICoreSpecifications&lt;T&gt;` interface for providing generic ways to
 /// define specifications for querying the database.
 /// </summary>
 /// <typeparam name="T">The type of the object which specifications are applied to. Something like an EF Core model type.</typeparam>
