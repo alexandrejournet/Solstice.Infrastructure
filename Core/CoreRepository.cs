@@ -6,6 +6,7 @@ using Solstice.Domain.Models;
 using Solstice.Infrastructure.Extensions;
 using System.Data.Common;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Solstice.Infrastructure.Specifications;
 
 namespace Solstice.Infrastructure.Core;
@@ -50,13 +51,13 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
     public async Task AddAndSaveAsync(T entity)
     {
         await AddAsync(entity);
-        await SaveAsync();
+        await SaveChangesAsync();
     }
 
     public async Task AddAndSaveAsync<TEntity>(TEntity entity) where TEntity : class
     {
         await AddAsync(entity);
-        await SaveAsync();
+        await SaveChangesAsync();
     }
 
     /// <summary>
@@ -76,13 +77,13 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
     public async Task AddRangeAndSaveAsync(ICollection<T> entities)
     {
         await AddRangeAsync(entities);
-        await SaveAsync();
+        await SaveChangesAsync();
     }
 
     public async Task AddRangeAndSaveAsync<TEntity>(ICollection<TEntity> entities) where TEntity : class
     {
         await AddRangeAsync(entities);
-        await SaveAsync();
+        await SaveChangesAsync();
     }
 
     /// <summary>
@@ -91,7 +92,7 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
     /// <param name="where">The expression to evaluate.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a boolean
     /// indicating whether any entities match the expression.</returns>
-    public async Task<bool> AnyAsyncBy(Expression<Func<T, bool>> where)
+    public async Task<bool> AnyAsync(Expression<Func<T, bool>> where)
     {
         return await CoreSpecificationEvaluator<T>.GetQuery(_dbContext.Set<T>()
                 .AsQueryable(), new Specification<T>(where))
@@ -99,11 +100,11 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
             .AnyAsync(_cancellationToken);
     }
 
-    public async Task<bool> AnyAsyncBy<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class
+    public async Task<bool> AnyAsync<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class
     {
         return await ApplySpecificationWhere(where).AnyAsync(_cancellationToken);
     }
-    public async Task<bool> AnyAsyncBy<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
+    public async Task<bool> AnyAsync<TEntity>(IQueryable<TEntity> queryable) where TEntity : class
     {
         return await queryable.AnyAsync(_cancellationToken);
     }
@@ -121,18 +122,18 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
     /// Counts all entities in the database.
     /// </summary>
     /// <returns>A task that represents the asynchronous operation. The task result contains the count of all entities.</returns>
-    public async Task<decimal> CountAllAsync()
+    public async Task<decimal> CountAsync()
     {
-        return await CountAllAsyncBy(null);
+        return await CountAsync(null);
     }
     
     /// <summary>
     /// Counts all entities in the database.
     /// </summary>
     /// <returns>A task that represents the asynchronous operation. The task result contains the count of all entities.</returns>
-    public async Task<decimal> CountAllAsync<TEntity>() where TEntity : class
+    public async Task<decimal> CountAsync<TEntity>() where TEntity : class
     {
-        return await CountAllAsyncBy<TEntity>(null);
+        return await CountAsync<TEntity>(null);
     }
 
     /// <summary>
@@ -140,14 +141,14 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
     /// </summary>
     /// <param name="where">The expression to evaluate.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the count of entities that satisfy the expression.</returns>
-    public async Task<decimal> CountAllAsyncBy(Expression<Func<T, bool>>? where)
+    public async Task<decimal> CountAsync(Expression<Func<T, bool>>? where)
     {
         return await CoreSpecificationEvaluator<T>.GetQuery(_dbContext.Set<T>()
                 .AsQueryable(), new Specification<T>(where))
             .CountAsync(_cancellationToken);
     }
 
-    public async Task<decimal> CountAllAsyncBy<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class
+    public async Task<decimal> CountAsync<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class
     {
         return await ApplySpecificationWhere(where).CountAsync(_cancellationToken);
     }
@@ -432,6 +433,10 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
             .AsNoTracking()
             .FirstOrDefaultAsync(_cancellationToken);
     }
+    public async Task<T?> GetBy(string query, ICollection<DbParameter> parameters, ICoreSpecifications<T>? coreSpecifications)
+    {
+        return await ApplySpecificationQuery(query, parameters, coreSpecifications).FirstOrDefaultAsync(_cancellationToken);
+    }
     public async Task<TEntity?> GetBy<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class
     {
         return await ApplySpecificationWhere(where).FirstOrDefaultAsync(_cancellationToken);
@@ -548,12 +553,12 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
     public async Task RemoveAndSaveAsync(T entity)
     {
         Remove(entity);
-        await SaveAsync();
+        await SaveChangesAsync();
     }
     public async Task RemoveAndSaveAsync<TEntity>(TEntity entity) where TEntity : class
     {
         Remove(entity);
-        await SaveAsync();
+        await SaveChangesAsync();
     }
     /// <summary>
     /// Removes a range of entities from the database and saves the changes.
@@ -570,18 +575,18 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
     public async Task RemoveRangeAndSaveAsync(ICollection<T> entities)
     {
         RemoveRange(entities);
-        await SaveAsync();
+        await SaveChangesAsync();
     }
     public async Task RemoveRangeAndSaveAsync<TEntity>(ICollection<TEntity> entities) where TEntity : class
     {
         RemoveRange(entities);
-        await SaveAsync();
+        await SaveChangesAsync();
     }
     /// <summary>
     /// Saves changes in the DbContext to the database.
     /// </summary>
     /// <returns>A task represents the asynchronous operation for saving changes to the database.</returns>
-    public async Task SaveAsync()
+    public async Task SaveChangesAsync()
     {
         await _dbContext.SaveChangesAsync(_cancellationToken);
     }
@@ -603,12 +608,12 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
     public async Task UpdateAndSaveAsync(T entity)
     {
         Update(entity);
-        await SaveAsync();
+        await SaveChangesAsync();
     }
     public async Task UpdateAndSaveAsync<TEntity>(TEntity entity) where TEntity : class
     {
         Update(entity);
-        await SaveAsync();
+        await SaveChangesAsync();
     }
     /// <summary>
     /// Updates the range of entities in the DbContext and saves the changes to the database.
@@ -627,12 +632,12 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
     public async Task UpdateRangeAndSaveAsync(ICollection<T> entities)
     {
         UpdateRange(entities);
-        await SaveAsync();
+        await SaveChangesAsync();
     }
     public async Task UpdateRangeAndSaveAsync<TEntity>(ICollection<TEntity> entities) where TEntity : class
     {
         UpdateRange(entities);
-        await SaveAsync();
+        await SaveChangesAsync();
     }
 
     public async Task ExecuteQuery(string query, ICollection<DbParameter>? dbParameters)
@@ -646,7 +651,7 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
             await _dbContext.Database.ExecuteSqlRawAsync(query, _cancellationToken);
         }
 
-        await SaveAsync();
+        await SaveChangesAsync();
     }
 
     private IQueryable<T> ApplySpecification(ICoreSpecifications<T>? coreSpecifications)
@@ -725,6 +730,11 @@ public class CoreRepository<T, TContext> : ICoreRepository<T>
     private IQueryable<TEntity> ApplySpecificationWhere<TEntity>(Expression<Func<TEntity, bool>> where, ICoreSpecifications<TEntity>? coreSpecifications) where TEntity : class
     {
         return CoreSpecificationEvaluator<TEntity>.GetQuery(_dbContext.Set<TEntity>().Where(where).AsQueryable(), coreSpecifications);
+    }
+
+    public ChangeTracker ChangeTracker()
+    {
+        return _dbContext.ChangeTracker;
     }
 }
 

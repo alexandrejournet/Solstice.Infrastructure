@@ -2,6 +2,7 @@
 using Solstice.Domain.Models;
 using System.Data.Common;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Solstice.Infrastructure.Specifications;
 
 namespace Solstice.Infrastructure.Core;
@@ -74,7 +75,7 @@ public interface ICoreRepository<T> where T : class
     /// Save changes in repository
     /// </summary>
     /// <returns></returns>
-    Task SaveAsync();
+    Task SaveChangesAsync();
     /// <summary>
     /// Update entity in repository
     /// </summary>
@@ -104,22 +105,24 @@ public interface ICoreRepository<T> where T : class
     /// </summary>
     /// <param name="where">The expression that describes the condition to match</param>
     /// <returns>True if any entity matches the condition, False otherwise</returns>
-    Task<bool> AnyAsyncBy(Expression<Func<T, bool>> where);
-    Task<bool> AnyAsyncBy<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class;
-    Task<bool> AnyAsyncBy<TEntity>(IQueryable<TEntity> queryable) where TEntity : class;
+    Task<bool> AnyAsync(Expression<Func<T, bool>> where);
+    Task<bool> AnyAsync<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class;
+    Task<bool> AnyAsync<TEntity>(IQueryable<TEntity> queryable) where TEntity : class;
     /// <summary>
     /// Counts all entities in repository
     /// </summary>
     /// <returns>Total count of all entities</returns>
-    Task<decimal> CountAllAsync();
+    Task<decimal> CountAsync();
+    
+    Task<decimal> CountAsync<TEntity>() where TEntity : class;
 
     /// <summary>
     /// Counts the total entities that match the provided expression
     /// </summary>
     /// <param name="where">The expression that describes the condition to match</param>
     /// <returns>Total matched entities count</returns>
-    Task<decimal> CountAllAsyncBy(Expression<Func<T, bool>> where);
-    Task<decimal> CountAllAsyncBy<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class;
+    Task<decimal> CountAsync(Expression<Func<T, bool>> where);
+    Task<decimal> CountAsync<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class;
     Task<T> FindAsync(int id);
     Task<TEntity> FindAsync<TEntity>(int id) where TEntity : class;
 
@@ -143,7 +146,7 @@ public interface ICoreRepository<T> where T : class
     /// Radiant specifications. If no entity satisfies the specifications, the task result is null.
     /// </returns>
     Task<T?> GetBy(ICoreSpecifications<T> coreSpecifications);
-
+    Task<T?> GetBy(string query, ICollection<DbParameter> parameters, ICoreSpecifications<T>? coreSpecifications);
     Task<TEntity?> GetBy<TEntity>(Expression<Func<TEntity, bool>> where) where TEntity : class;
     Task<TEntity?> GetBy<TEntity>(ICoreSpecifications<TEntity> coreSpecifications) where TEntity : class;
     Task<TEntity?> GetBy<TEntity>(string query, ICollection<DbParameter> parameters, ICoreSpecifications<TEntity> coreSpecifications) where TEntity : class;
@@ -336,6 +339,41 @@ public interface ICoreRepository<T> where T : class
     /// <returns>A task that represents the asynchronous operation. The task result contains a collection of entities that satisfy the query or an empty collection if no matches.</returns>
     Task<ICollection<TEntity>> GetAllByQueryable<TEntity>(IQueryable<TEntity> query);
     Task ExecuteQuery(string query, ICollection<DbParameter>? dbParameters);
+    ChangeTracker ChangeTracker();
 
     #endregion Others
+
+    /// <summary>
+    /// Gets entities from the database based on the SQL query and specifications provided.
+    /// </summary>
+    /// <param name="query">The SQL query to execute.</param>
+    /// <param name="coreSpecifications">The core specifications to evaluate.</param>
+    /// <returns>IQueryable of entities fetched based on the query and specifications.</returns>
+    IQueryable<T> GetAllQueryable(string query);
+
+    /// <summary>
+    /// Gets entities from the database based on the SQL query, parameters, and specifications provided.
+    /// </summary>
+    /// <param name="query">The SQL query to execute.</param>
+    /// <param name="parameters">The SQL parameters needed for the query.</param>
+    /// <param name="coreSpecifications">The core specifications to evaluate.</param>
+    /// <returns>IQueryable of entities fetched based on the query, parameters, and specifications.</returns>
+    IQueryable<T> GetAllQueryable(string query, ICollection<DbParameter> parameters);
+
+    /// <summary>
+    /// Gets entities from the database based on the SQL query and specifications provided.
+    /// </summary>
+    /// <param name="query">The SQL query to execute.</param>
+    /// <param name="coreSpecifications">The core specifications to evaluate.</param>
+    /// <returns>IQueryable of entities fetched based on the query and specifications.</returns>
+    IQueryable<TEntity> GetAllQueryable<TEntity>(string query) where TEntity : class;
+
+    /// <summary>
+    /// Gets entities from the database based on the SQL query, parameters, and specifications provided.
+    /// </summary>
+    /// <param name="query">The SQL query to execute.</param>
+    /// <param name="parameters">The SQL parameters needed for the query.</param>
+    /// <param name="coreSpecifications">The core specifications to evaluate.</param>
+    /// <returns>IQueryable of entities fetched based on the query, parameters, and specifications.</returns>
+    IQueryable<TEntity> GetAllQueryable<TEntity>(string query, ICollection<DbParameter> parameters) where TEntity : class;
 }
