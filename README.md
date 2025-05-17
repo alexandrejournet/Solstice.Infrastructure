@@ -1,3 +1,3 @@
 # Solstice.Infrastructure
 
-Partie Repository de RadiantFramework
+Partie Repository de Solstice Framework
