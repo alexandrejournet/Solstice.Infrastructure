@@ -7,18 +7,18 @@ namespace Solstice.Infrastructure.UnitOfWorks;
 public sealed class UnitOfWork<TDbContext>(TDbContext dbContext, IHttpContextAccessor httpContext) : IUnitOfWork
     where TDbContext : DbContext
 {
-    private Dictionary<Type, object> _repositories { get; } = new();
+    private Dictionary<Type, object> Repositories { get; } = new();
 
     TRepository IUnitOfWork.GetRepository<TRepository, TEntity>()
     {
-        if (_repositories.ContainsKey(typeof(TEntity)))
+        if (Repositories.ContainsKey(typeof(TEntity)))
         {
-            return (TRepository)_repositories[typeof(TEntity)];
+            return (TRepository)Repositories[typeof(TEntity)];
         }
 
         var type = typeof(TRepository);
         var repository = Activator.CreateInstance(type, dbContext, httpContext) ?? throw new CoreException("Cannot create repository");
-        _repositories.Add(typeof(TEntity), repository);
+        Repositories.Add(typeof(TEntity), repository);
         return (TRepository)repository;
     }
 
